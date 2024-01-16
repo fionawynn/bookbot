@@ -1,0 +1,31 @@
+
+def main():
+    book_path = ""
+    text = get_book_text(book_path)
+    num_words = get_num_words(text)
+    print(f"{num_words} words found in the document")
+    get_book_letter_count(text)
+
+
+def get_num_words(text):
+    words = text.split()
+    return len(words)
+
+
+def get_book_text(path):
+    with open(path) as f:
+        return f.read()
+
+def get_book_letter_count(text):
+    letter_dictionary = {}
+    for i in range(0, len(text)):
+        if text[i].isalpha():
+            if text[i].lower() in letter_dictionary:
+                letter_dictionary[text[i].lower()] += 1
+            else:
+                letter_dictionary[text[i].lower()] = 1
+    letters_sorted = sorted(letter_dictionary.items(), key = lambda item: item[1], reverse = True)
+    for letter in letters_sorted:
+        print(f"The '{letter[0]}' character was found {letter[1]} times")
+
+main()
